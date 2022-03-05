@@ -4,19 +4,19 @@ import React, { Component } from "react";
 class Counter extends Component {
   // any data this class need are declared in state{}
   state = {
-    count: 0,
+    count: this.props.counter.value,
     // randomly generate 200x200 picture.
     // imageURL: "https://picsum.photos/200",
     tags: ["tag1", "tag2", "tag3"],
   };
 
   style = {
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: "bold",
   };
 
-  handleclick = () => {
-    this.setState({ count: this.state.count + 10 });
+  handleclick = (product) => {
+    this.setState({ count: this.state.count + 1 });
   };
 
   renderTags() {
@@ -33,21 +33,34 @@ class Counter extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         {/* <img src={this.state.imageURL}></img> */}
-
+        {/* {this.props.children} */}
         <span style={this.style} className={this.getBadgeClasses()}>
           {this.formatCount()}
         </span>
-        <button onClick={this.handleclick} className="btn btn-secondary btn-sm">
+        <button
+          onClick={() => {
+            this.handleclick({ id: 1 });
+          }}
+          className="btn btn-secondary btn-sm m-2"
+        >
           <h1>Increment</h1>
         </button>
+        <button
+          className="btn btn-danger btn-sm m-2 "
+          onClick={() => {
+            this.props.onDelete(this.props.counter.id);
+          }}
+        >
+          <h1>Delete</h1>
+        </button>
 
-        <div>
+        {/* <div>
           {this.state.tags.length === 0 && "Please create a new tag!"}
           {this.renderTags()}
-        </div>
-      </React.Fragment>
+        </div> */}
+      </div>
     );
   }
 
